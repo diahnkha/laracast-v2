@@ -124,12 +124,12 @@ Route::get('/posts/{post:slug}', [PostsController::class, 'show']);
 //     ]);
 // })->name('category');
 
-Route::get('authors/{author:username}', function (User $author){
-    // dd($author);
-    return view('posts', [
-        'posts' => $author->posts
-    ]);
-});
+// Route::get('authors/{author:username}', function (User $author){
+//     // dd($author);
+//     return view('posts.index', [
+//         'posts' => $author->posts
+//     ]);
+// });
 
 // Route::get('/posts/{post}', function ($slug) {
 
