@@ -32,7 +32,9 @@ class RegisterController extends Controller
         //     'name' => $attributes['name'],
         //     'password' => bcrypt($attributes['passwored'])
         // ]);
-
-        return redirect('/');
+        
+        // session()->flash('success', 'Your account has been created');
+        
+        return redirect('/')->with('success', 'Your account has been created');
     }
 }
