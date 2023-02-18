@@ -19,6 +19,20 @@ class Post extends Model
     //     return $this->belongsTo(Category::class);
     // }
 
+    public function scopeFilter($query, array $filters){
+        // if ($filters['search'] ?? false){
+        //     $query
+        //         ->where('title', 'like', '%' . request('search') . '%')
+        //          ->orWhere('body', 'like', '%' . request('search') . '%');
+        // }
+
+        $query->when($filters['search'] ?? false, fn ($query, $search) => 
+            $query
+                ->where('title', 'like', '%' . $search . '%')
+                 ->orWhere('body', 'like', '%' . $search . '%')         
+        );
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
