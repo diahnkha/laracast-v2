@@ -10,6 +10,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\SessionsController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,6 +115,28 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 //         'posts' => Post::all()
 //     ]);
 // });
+
+Route::get('ping', function(){
+    
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+    
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us17'
+    ]);
+    
+    // $response = $mailchimp->ping->get();
+
+    // $response = $mailchimp->lists->getList('c41ebc5616');
+
+    $response = $mailchimp->lists->addListMember('c41ebc5616', [
+        'email_address' => 'kukuruyuk@gmail.com',
+        'status' => 'subscribed'
+    ]);
+
+    ddd($response);
+});
+
 
 Route::get('/', [PostsController::class, 'index'])->name('home');
 
