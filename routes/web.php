@@ -115,6 +115,30 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 //     ]);
 // });
 
+Route::get('ping', function(){
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us17'
+    ]);
+
+    // $response = $mailchimp->ping->get();
+
+    // $response = $mailchimp->lists->getAllLists();
+
+    // $response = $mailchimp->lists->getList('c41ebc5616');
+
+    // $response = $mailchimp->lists->getListMembersInfo('c41ebc5616');
+
+    $response = $mailchimp->lists->addListMember('c41ebc5616', [
+        "email_address" => "diahnurkhasanah5@gmail.com",
+        "status" => "subscribed",
+    ]);
+
+    ddd($response);
+});
+
 Route::get('/', [PostsController::class, 'index'])->name('home');
 
 Route::get('/posts/{post:slug}', [PostsController::class, 'show']);
