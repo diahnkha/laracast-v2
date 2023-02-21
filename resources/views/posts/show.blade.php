@@ -52,6 +52,17 @@
                         {!! $post->body !!}
                     </div>
                 </div>
+
+                <section class="col-span-8 col-start-5 mt-10 space-y-4">
+                    @foreach ($post->comments as $comment)
+                        <x-post-comment :comment="$comment"/>
+                    @endforeach
+                </section>
+
+                <!-- <section class="col-span-8 col-start-5 mt-10 space-y-4">
+                <x-post-comment-dong/>
+                </section> -->
+
             </article>
         </main>
     </section>
