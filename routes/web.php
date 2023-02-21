@@ -10,6 +10,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\SessionsController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,7 +133,7 @@ Route::get('ping', function(){
     // $response = $mailchimp->lists->getListMembersInfo('c41ebc5616');
 
     $response = $mailchimp->lists->addListMember('c41ebc5616', [
-        "email_address" => "diahnurkhasanah5@gmail.com",
+        "email_address" => "diahnurkhasanah100@gmail.com",
         "status" => "subscribed",
     ]);
 
