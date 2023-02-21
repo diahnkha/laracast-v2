@@ -116,7 +116,10 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 //     ]);
 // });
 
-Route::get('ping', function(){
+Route::post('newsletter', function(){
+
+    request()->validate(['email' => 'required|email']);
+
     $mailchimp = new \MailchimpMarketing\ApiClient();
 
     $mailchimp->setConfig([
@@ -132,12 +135,23 @@ Route::get('ping', function(){
 
     // $response = $mailchimp->lists->getListMembersInfo('c41ebc5616');
 
-    $response = $mailchimp->lists->addListMember('c41ebc5616', [
-        "email_address" => "diahnurkhasanah100@gmail.com",
-        "status" => "subscribed",
-    ]);
+    try {
+        
+            $response = $mailchimp->lists->addListMember('c41ebc5616', [
+                "email_address" => request('email'),
+                "status" => "subscribed",
+            ]);
 
-    ddd($response);
+    } catch (\Exception $e){
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'this email could not be added to our newsletter list'
+        ]);
+    }
+
+    // ddd($response);
+
+    return redirect('/')
+        ->with('success', 'You are now signed up for our newsletter');
 });
 
 Route::get('/', [PostsController::class, 'index'])->name('home');
