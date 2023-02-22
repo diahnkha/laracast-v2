@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('user_id')->contrained()->cascadeOnDelete();
             $table->foreignId('category_id');
             $table->string('slug')->unique();
+            $table->string('thumbnail')->nullable();
             $table->text('excerpt');
             $table->text('body');
             $table->timestamps();

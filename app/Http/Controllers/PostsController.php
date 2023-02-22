@@ -48,9 +48,14 @@ class PostsController extends Controller
 
     public function store()
     {
+        // $path = request()->file('thumbnail')->store('thumbnails');
+
+        // return 'Done' . $path;
         // ddd(request()->all());
+        // ddd(request()->file('thumbnail'));
         $attributes = request()->validate([
             'title' => 'required',
+            'thumbnail' => 'required|image',
             'slug' => ['required', Rule::unique('posts', 'slug')],
             'excerpt' => 'required',
             'body' => 'required',
@@ -58,6 +63,7 @@ class PostsController extends Controller
         ]);
 
         $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         Post::create($attributes);
 
