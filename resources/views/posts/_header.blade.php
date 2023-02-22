@@ -3,13 +3,13 @@
                 Latest <span class="text-blue-500">Laravel From Scratch</span> News
             </h1>
 
-            <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-4">
+            <div class=" space-y-2 lg:space-y-0 lg:space-x-4 mt-4">
                 <!--  Category -->
                 <div class="relative bg-gray-100 lg:inline-flex rounded-xl">
                     <x-category-dropdown />
                 </div>
 
-                </div>
+        
 
                 <!-- Other Filters -->
                 <!-- <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
