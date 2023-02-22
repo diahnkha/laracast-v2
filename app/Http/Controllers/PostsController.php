@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Http;
@@ -43,6 +44,24 @@ class PostsController extends Controller
         // }
 
         return view('posts.create');
+    }
+
+    public function store()
+    {
+        // ddd(request()->all());
+        $attributes = request()->validate([
+            'title' => 'required',
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
+
+        $attributes['user_id'] = auth()->id();
+
+        Post::create($attributes);
+
+        return redirect('/');
     }
 
 

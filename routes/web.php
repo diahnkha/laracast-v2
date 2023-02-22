@@ -135,6 +135,7 @@ Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 
 Route::get('admin/posts/create', [PostsController::class, 'create'])->middleware('admin');
+Route::post('admin/posts', [PostsController::class, 'store'])->middleware('admin');
 
 
 // Route::get('/categories/{category:slug}', function(Category $category){
