@@ -12,6 +12,7 @@ use App\Http\Controllers\SessionsController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use App\Services\Newsletter;
 use \Illuminate\Validation\ValidationException;
+use App\Http\Middleware\MustBeAdministrator;
 
 
 /*
@@ -132,6 +133,8 @@ Route::post('register', [RegisterController::class, 'store'])->middleware('guest
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
+
+Route::get('admin/posts/create', [PostsController::class, 'create'])->middleware('admin');
 
 
 // Route::get('/categories/{category:slug}', function(Category $category){

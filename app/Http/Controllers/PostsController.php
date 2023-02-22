@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Http\Response;
 use App\Models\User;
+
+use Illuminate\Support\Facades\Http;
 
 class PostsController extends Controller
 {
@@ -26,6 +29,20 @@ class PostsController extends Controller
         return view('posts.show', [
             'post' => $post
         ]);
+    }
+
+
+    public function create()
+    {
+        // // if(auth()->guest()){
+        // //     abort(Response::HTTP_FORBIDDEN);
+        // // }
+        // if(auth()->user()?->username != 'penggunaku'){
+            
+        //     abort(Response::HTTP_FORBIDDEN);
+        // }
+
+        return view('posts.create');
     }
 
 
