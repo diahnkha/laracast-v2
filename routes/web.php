@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\SessionsController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -118,45 +119,13 @@ use \Illuminate\Validation\ValidationException;
 //     ]);
 // });
 
-Route::post('newsletter', function(){
-
-    request()->validate(['email' => 'required|email']);
-
-
-
-    // $response = $mailchimp->ping->get();
-
-    // $response = $mailchimp->lists->getAllLists();
-
-    // $response = $mailchimp->lists->getList('c41ebc5616');
-
-    // $response = $mailchimp->lists->getListMembersInfo('c41ebc5616');
-
-    try {
-        
-        // $newsletter = new Newsletter();
-
-        // $newsletter->subscribe(request('email'));
-
-        (new Newsletter())->subscribe(request('email'));
-
-    } catch (Exception $e){
-        throw ValidationException::withMessages([
-            'email' => 'this email could not be added to our newsletter list'
-        ]);
-    }
-
-    // ddd($response);
-
-    return redirect('/')
-        ->with('success', 'You are now signed up for our newsletter');
-});
 
 Route::get('/', [PostsController::class, 'index'])->name('home');
 
 Route::get('/posts/{post:slug}', [PostsController::class, 'show']);
-
 Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
+
+Route::post('newsletter', NewsletterController::class);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
