@@ -9,6 +9,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\SessionsController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Services\Newsletter;
+use \Illuminate\Validation\ValidationException;
 
 
 /*
@@ -120,12 +122,7 @@ Route::post('newsletter', function(){
 
     request()->validate(['email' => 'required|email']);
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
 
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us17'
-    ]);
 
     // $response = $mailchimp->ping->get();
 
@@ -137,13 +134,14 @@ Route::post('newsletter', function(){
 
     try {
         
-            $response = $mailchimp->lists->addListMember('c41ebc5616', [
-                "email_address" => request('email'),
-                "status" => "subscribed",
-            ]);
+        // $newsletter = new Newsletter();
 
-    } catch (\Exception $e){
-        throw \Illuminate\Validation\ValidationException::withMessages([
+        // $newsletter->subscribe(request('email'));
+
+        (new Newsletter())->subscribe(request('email'));
+
+    } catch (Exception $e){
+        throw ValidationException::withMessages([
             'email' => 'this email could not be added to our newsletter list'
         ]);
     }
