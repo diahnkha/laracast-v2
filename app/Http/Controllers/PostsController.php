@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Http;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Http;
 class PostsController extends Controller
 {
     public function index(){
+        // $this->authorize('admin');
+
+        // dd('fshfjks');
+        // dd(request()->user()->can('admin '));
+        // dd(Gate::allows('admin'));
         return view('posts.index',[ 
             // 'posts' => Post::latest()->with(['category','author'])->get(),
 

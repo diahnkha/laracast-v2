@@ -7,6 +7,9 @@ use App\Services\MailchimpNewsletter;
 use App\Services\ConvertKitNewsletter;
 use MailchimpMarketing\ApiClient;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades;
+use app\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,5 +40,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::unguard();
+
+        Gate::define('admin', function (User $user) {
+            return $user->username === 'penggunaku'; 
+        });
+
+        \Blade::if('admin', function(){
+            return request()->user()?->can('admin'); //not quire right 
+        }); 
+
     }
 }
